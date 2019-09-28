@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Listings from './pages/Listings';
 import { ListingDetails } from './pages/ListingDetails';
+import { BuyBlocks } from './pages/BuyBlocks';
 import { Callback } from './pages/Callback';
 import { Portfolio } from './pages/Portfolio';
 import { Login } from './pages/Login';
@@ -40,9 +41,9 @@ const routes = [
     path: '/listings/:listingId',
   },
   {
-    component: ListingPayment,
+    component: BuyBlocks,
     exact: true,
-    path: '/listings/:listingId/payments',
+    path: '/listings/:listingId/buy-blocks',
   },
   {
     component: Callback,

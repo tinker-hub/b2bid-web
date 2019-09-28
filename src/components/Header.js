@@ -18,7 +18,9 @@ import {
   House as HouseIcon,
 } from '@material-ui/icons';
 
-export const Header = () => {
+export const Header = props => {
+  const { hideTabNavigation } = props;
+
   const location = useLocation();
 
   const history = useHistory();
@@ -56,20 +58,22 @@ export const Header = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      <Paper>
-        <Tabs
-          centered
-          value={value}
-          onChange={handleChange}
-          variant="standard"
-          indicatorColor="primary"
-          textColor="primary"
-          aria-label="scrollable force tabs example"
-        >
-          <Tab label="Listings" icon={<HouseIcon />} />
-          <Tab label="Portfolio" icon={<AccountBalanceWalletIcon />} />
-        </Tabs>
-      </Paper>
+      {!hideTabNavigation && (
+        <Paper>
+          <Tabs
+            centered
+            value={value}
+            onChange={handleChange}
+            variant="standard"
+            indicatorColor="primary"
+            textColor="primary"
+            aria-label="scrollable force tabs example"
+          >
+            <Tab label="Listings" icon={<HouseIcon />} />
+            <Tab label="Portfolio" icon={<AccountBalanceWalletIcon />} />
+          </Tabs>
+        </Paper>
+      )}
     </Box>
   );
 };
