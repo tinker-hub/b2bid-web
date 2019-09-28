@@ -19,11 +19,10 @@ export const useUnionbankGetAccessToken = code => {
 
       try {
         const response = await unionBankAxios.post(
-          '/api/convergent/v1/oauth2/token',
+          '/convergent/v1/oauth2/token',
           {
             grant_type: 'authorization_code',
             client_id: process.env.REACT_APP_UNIONBANK_CLIENT_ID,
-            client_secret: process.env.REACT_APP_UNIONBANK_CLIENT_SECRET,
             code,
             redirect_uri: process.env.REACT_APP_UNIONBANK_REDIRECT_URI,
           },
@@ -59,7 +58,7 @@ export const useUnionbankFundTransfer = () => {
       try {
         setLoading(true);
         const response = await unionBankAxios.post(
-          '/api/partners/v1/transfers/single',
+          '/partners/v1/transfers/single',
           {
             senderTransferId: 'TRANSFER-0001',
             transferRequestDate: '2017-10-10T12:11:50Z',
