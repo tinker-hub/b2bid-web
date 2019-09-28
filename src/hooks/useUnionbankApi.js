@@ -16,13 +16,11 @@ export const useUnionbankGetAccessToken = code => {
     client_id: process.env.REACT_APP_UNIONBANK_CLIENT_ID,
     client_secret: process.env.REACT_APP_UNIONBANK_CLIENT_SECRET,
     code,
-    // Own redirect?
-    redirect_uri: 'https://api-uat.unionbankph.com/ubp/uat/v1/redirect',
+    redirect_uri: process.env.REACT_APP_UNIONBANK_REDIRECT_URI,
   });
 };
 
 export const useUnionbankFundTransfer = () => {
-  const api = useUnionbankApi();
   return unionBankAxios.post('/api/partners/v1/transfers/single', {
     senderTransferId: 'TRANSFER-0001',
     transferRequestDate: '2017-10-10T12:11:50Z',
