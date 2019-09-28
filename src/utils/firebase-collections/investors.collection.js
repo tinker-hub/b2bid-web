@@ -20,10 +20,12 @@ const investorsCollection = {
       const investors = currentValue.investors || [];
       const newInvestors = investors.filter(investor => investor.id === id);
 
-      accumulator.push({
-        ...currentValue,
-        investors: newInvestors,
-      });
+      if (newInvestors.length) {
+        accumulator.push({
+          ...currentValue,
+          investors: newInvestors,
+        });
+      }
       return accumulator;
     }, []);
   },
