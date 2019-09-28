@@ -50,6 +50,7 @@ const Listings = props => {
 
   const getUnits = async () => {
     const res = await unitsCollection.getAll();
+    console.log(res);
     setListingsData(res);
     setListingsRaw(res);
     setFilterData(getUniqueLocations(res));
@@ -108,6 +109,7 @@ const Listings = props => {
                     investors={
                       value.investors != null ? value.investors.length : 0
                     }
+                    lowestAvailablePrice={value.lowestAvailablePrice}
                     type={value.type}
                     location={value.location}
                     imageUrl={value.photosUrls[0]}

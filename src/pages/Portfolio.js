@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, useTheme } from '@material-ui/core';
 import { Layout } from '../components/Layout';
@@ -9,6 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { investorsCollection } from '../utils/firebase-collections/investors.collection';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -121,6 +122,33 @@ export const Portfolio = () => {
   const classes = useStyles();
   const theme = useTheme();
 
+  const [rowsData, setRowsData] = React.useState([]);
+
+  useEffect(() => {
+    getInvestors();
+  }, []);
+
+  const getInvestors = async () => {
+    const res = await investorsCollection.getPortfolios(49);
+    var rows = [];
+    res.forEach(element => {
+      rows.push(
+        createData(
+          element.name,
+          element.type,
+          102.4,
+          101.21,
+          20,
+          '2,022.70',
+          '2,177.23',
+          99.63,
+          '4.93%',
+        ),
+      );
+    });
+    setRowsData(rows);
+  };
+
   return (
     <Layout>
       <PageContainer style={{ spacing: theme.spacing(3) }}>
@@ -157,7 +185,7 @@ export const Portfolio = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map(row => (
+                {rowsData.map(row => (
                   <TableRow key={row.name}>
                     <TableCell component="th" scope="row">
                       {row.listing}
