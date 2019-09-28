@@ -158,6 +158,7 @@ export const ListingItem = props => {
             variant="contained"
             color="secondary"
             className={classes.button}
+            onClick={() => props.onClick(props.id)}
           >
             VIEW PROPERTY
           </Button>

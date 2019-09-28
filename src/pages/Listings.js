@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { withRouter } from 'react-router';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -28,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const Listings = () => {
+const Listings = props => {
   const theme = useTheme();
 
   const styles = useStyles();
@@ -57,6 +58,10 @@ export const Listings = () => {
       ...oldValues,
       [event.target.name]: event.target.value,
     }));
+  };
+
+  const handleOnListingClick = id => {
+    props.history.push(`/listings/${id}`, { id });
   };
 
   return (
@@ -97,6 +102,7 @@ export const Listings = () => {
                 return (
                   <ListingItem
                     key={index}
+                    id={index + 1}
                     name={value.name}
                     investors={
                       value.investors != null ? value.investors.length : 0
@@ -108,6 +114,7 @@ export const Listings = () => {
                     numberOfRestroom={value.numberOfRestroom}
                     numberOfCarPark={value.numberOfCarPark}
                     price={value.unitPrice}
+                    onClick={handleOnListingClick}
                   />
                 );
               })}
@@ -118,3 +125,5 @@ export const Listings = () => {
     </Layout>
   );
 };
+
+export default withRouter(Listings);
