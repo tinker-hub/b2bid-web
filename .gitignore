@@ -1,4 +1,6 @@
 node_modules/
 build/
 .firebase
-.env
+
+.env.development
+.env.local
