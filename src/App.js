@@ -1,13 +1,45 @@
 import React, { Suspense } from 'react';
 
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { createGlobalStyle } from 'styled-components';
 
-import { ProjectDetails } from './pages/ProjectDetails';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { Listings } from './pages/Listings';
+import { ListingDetails } from './pages/ListingDetails';
+import { Callback } from './pages/Callback';
 
 export const App = () => (
-  <div className="App">
+  <>
     <Suspense fallback={<CircularProgress />}>
-      <ProjectDetails />
+      <Router>
+        {routes.map(({ exact, path, component: Component }) => (
+          <Route exact={exact} key={path} component={Component} path={path} />
+        ))}
+      </Router>
     </Suspense>
-  </div>
+    <GlobalStyle />
+  </>
 );
+
+const routes = [
+  {
+    exact: true,
+    component: Listings,
+    path: '/listings',
+  },
+  {
+    component: ListingDetails,
+    path: '/listings/:listingId',
+  },
+  {
+    component: Callback,
+    path: '/callback',
+  },
+];
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+  }
+`;

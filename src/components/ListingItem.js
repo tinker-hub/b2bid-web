@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -65,13 +65,19 @@ const useStyles = makeStyles(theme => ({
 export const ListingItem = props => {
   const classes = useStyles();
 
+  const theme = useTheme();
+
   return (
     <Grid item xs={4}>
       <Card className={classes.card}>
         <CardHeader
           title={props.name}
-          subheader={props.location}
-          style={{ color: '#fff', background: '#41414A' }}
+          subheader={
+            <Typography style={{ color: theme.palette.primary.contrastText }}>
+              {props.location}
+            </Typography>
+          }
+          style={{ color: '#fff', background: theme.palette.primary.main }}
         />
         <CardMedia className={classes.media} image={props.imageUrl} />
         <Grid container style={{ background: '#EEEEEE', padding: '8px 15px' }}>
