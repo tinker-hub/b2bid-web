@@ -6,7 +6,6 @@ import Button from '@material-ui/core/Button';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import HotelIcon from '@material-ui/icons/Hotel';
@@ -63,27 +62,24 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const ListingItem = () => {
+export const ListingItem = props => {
   const classes = useStyles();
 
   return (
     <Grid item xs={4}>
       <Card className={classes.card}>
         <CardHeader
-          title="Bondi Beach NSW"
+          title={props.name}
+          subheader={props.location}
           style={{ color: '#fff', background: '#41414A' }}
         />
-        <CardMedia
-          className={classes.media}
-          image="https://material-ui.com/static/images/cards/paella.jpg"
-          title="Paella dish"
-        />
+        <CardMedia className={classes.media} image={props.imageUrl} />
         <Grid container style={{ background: '#EEEEEE', padding: '8px 15px' }}>
           <Grid item container xs={9} spacing={2}>
             <Grid item xs={4}>
               <Box className={classes.iconContainer}>
                 <Typography variant="subtitle2" component="p">
-                  2
+                  {props.numberOfBed}
                 </Typography>
                 <HotelIcon color="secondary" />
               </Box>
@@ -91,7 +87,7 @@ export const ListingItem = () => {
             <Grid item xs={4}>
               <Box className={classes.iconContainer}>
                 <Typography variant="subtitle2" component="p">
-                  2
+                  {props.numberOfRestroom}
                 </Typography>
                 <BathtubIcon color="secondary" />
               </Box>
@@ -99,7 +95,7 @@ export const ListingItem = () => {
             <Grid item xs={4}>
               <Box className={classes.iconContainer}>
                 <Typography variant="subtitle2" component="p">
-                  2
+                  {props.numberOfCarPark}
                 </Typography>
                 <DriveEtaIcon color="secondary" />
               </Box>
@@ -107,7 +103,7 @@ export const ListingItem = () => {
           </Grid>
           <Grid item xs={3} className={classes.typeContainer}>
             <Typography variant="body2" component="p">
-              Unit
+              {props.type}
             </Typography>
           </Grid>
         </Grid>
@@ -115,33 +111,7 @@ export const ListingItem = () => {
           <Grid container>
             <Grid item xs={6} className={classes.dataContainer}>
               <Typography variant="body2" component="p">
-                Est. Net Rental Yield
-              </Typography>
-              <Typography
-                variant="body1"
-                color="textSecondary"
-                className={classes.percentText}
-              >
-                0.00%
-              </Typography>
-            </Grid>
-            <Grid item xs={6} className={classes.dataContainer}>
-              <Typography variant="body2" component="p">
-                20yr Historical Suburb Growth
-              </Typography>
-              <Typography
-                variant="body1"
-                color="textSecondary"
-                className={classes.percentText}
-              >
-                0.00%
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid container>
-            <Grid item xs={6} className={classes.dataContainer}>
-              <Typography variant="body2" component="p">
-                Latest Brick Evaluation
+                Lowest Available Block Price
               </Typography>
               <Typography
                 variant="body1"
@@ -160,21 +130,21 @@ export const ListingItem = () => {
                 color="textSecondary"
                 className={classes.percentText}
               >
-                0.00%
+                {props.investors}
               </Typography>
             </Grid>
           </Grid>
           <Grid container>
             <Grid item xs={12} className={classes.dataContainer}>
               <Typography variant="body2" component="p">
-                Lowest Available Brick Price
+                Unit Price
               </Typography>
               <Typography
                 variant="body1"
                 color="textSecondary"
                 className={classes.percentText}
               >
-                $1231
+                ${props.price}
               </Typography>
             </Grid>
           </Grid>
