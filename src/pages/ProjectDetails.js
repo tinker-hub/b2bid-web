@@ -37,7 +37,7 @@ export const ProjectDetails = () => {
 
   useEffect(() => {
     getUnits();
-  }, listingsData);
+  }, []);
 
   const getUnits = async () => {
     const res = await unitsCollection.getAll();
