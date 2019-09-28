@@ -12,7 +12,7 @@ export const useUnionbankGetAccessToken = code => {
     throw new Error('No code specified');
   }
   const api = useUnionbankApi();
-  const token = api.convergent.v1.oauth2.token.post({
+  const { access_token: token } = api.convergent.v1.oauth2.token.post({
     grant_type: 'authorization_code',
     client_id: process.env.REACT_APP_UNIONBANK_CLIENT_ID,
     client_secret: process.env.REACT_APP_UNIONBANK_CLIENT_SECRET,
