@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import { useHistory, useLocation } from 'react-router';
+
 import {
   AppBar,
   Box,
@@ -10,15 +13,33 @@ import {
   Paper,
 } from '@material-ui/core';
 import {
+  AccountBalanceWallet as AccountBalanceWalletIcon,
   AccountCircle as AccountCircleIcon,
   House as HouseIcon,
 } from '@material-ui/icons';
 
 export const Header = () => {
-  const [value, setValue] = React.useState(0);
+  const location = useLocation();
+
+  const history = useHistory();
+
+  let initialValue;
+  switch (location.pathname) {
+    case '/listings':
+      initialValue = 0;
+      break;
+    case '/portfolio':
+      initialValue = 1;
+      break;
+    default:
+      initialValue = 0;
+  }
+
+  const [value, setValue] = useState(initialValue);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    history.push(navigationRoutesTab[newValue]);
   };
 
   return (
@@ -32,24 +53,6 @@ export const Header = () => {
             <IconButton color="inherit">
               <AccountCircleIcon />
             </IconButton>
-            {/* <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={open}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-            </Menu> */}
           </Box>
         </Toolbar>
       </AppBar>
@@ -64,8 +67,14 @@ export const Header = () => {
           aria-label="scrollable force tabs example"
         >
           <Tab label="Listings" icon={<HouseIcon />} />
+          <Tab label="Portfolio" icon={<AccountBalanceWalletIcon />} />
         </Tabs>
       </Paper>
     </Box>
   );
+};
+
+const navigationRoutesTab = {
+  0: '/listings',
+  1: '/portfolio',
 };

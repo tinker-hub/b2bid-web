@@ -11,6 +11,7 @@ import { Callback } from './pages/Callback';
 import { Portfolio } from './pages/Portfolio';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
+import { Test } from './pages/Test';
 import { ListingPayment } from './pages/ListingPayment';
 
 export const App = () => (
@@ -27,6 +28,7 @@ export const App = () => (
 );
 
 const routes = [
+  { path: '/', exact: true, component: Login },
   {
     exact: true,
     component: Listings,
@@ -51,18 +53,12 @@ const routes = [
     path: '/portfolio',
   },
   {
-    exact: true,
-    component: Login,
-    path: '/',
-  },
-  {
     component: SignUp,
     path: '/signup',
   },
   {
-    path: '/',
-    exact: true,
-    component: Listings,
+    component: Test,
+    path: '/test',
   },
 ];
 
