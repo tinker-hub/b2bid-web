@@ -7,6 +7,7 @@
     "@material-ui/icons": "^4.4.3",
     "@synvox/api": "^0.1.6",
     "axios": "^0.19.0",
+    "bluebird": "^3.5.5",
     "firebase": "^7.0.0",
     "formik": "^1.5.8",
     "husky": "^3.0.5",
@@ -43,5 +44,8 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "devDependencies": {
+    "chance": "^1.1.0"
   }
 }

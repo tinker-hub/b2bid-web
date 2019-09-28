@@ -1,3 +1,5 @@
+import * as bluebird from 'bluebird';
+
 import { firebaseFactory } from '../firebase';
 import { investorsCollection } from './investors.collection';
 import { usersCollection } from './users.collection';
@@ -7,29 +9,54 @@ const collection = firebaseFactory()
   .collection('units');
 
 const parseInvestorDocumentRef = async investorRef => {
+  if (!investorRef.user) {
+    return investorRef;
+  }
   const user = await usersCollection.get(investorRef.user.id);
+  const { user: _, ...others } = investorRef;
+
   return {
-    user,
-    ...investorRef,
+    ...others,
+    ...user,
   };
 };
 
 const unitsCollection = {
+  add: async (unit = {}) => {
+    try {
+      const result = await collection.add(unit);
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  },
+  addAll: async (units = []) => {
+    try {
+      const asyncUnits = units.map(unitsCollection.add);
+      const results = await Promise.all(asyncUnits);
+      return results;
+    } catch (error) {
+      throw error;
+    }
+  },
   get: async id => {
-    const result = await collection.doc(id).get();
-    return result.data();
+    try {
+      const result = await collection.doc(id).get();
+      return result.data();
+    } catch (error) {
+      throw error;
+    }
   },
   getAll: async () => {
-    const result = await collection.get();
-    return result.docs
-      .map(doc => doc.data())
-      .map(data => {
-        if (Array.isArray(data.investors)) {
-          const investors = data.investors.map(async investorRef => {
-            const investor = await parseInvestorDocumentRef(investorRef);
-            return investor;
-          });
+    try {
+      const result = await collection.get();
+      return bluebird.map(result.docs, async doc => {
+        const data = await doc.data();
 
+        if (Array.isArray(data.investors)) {
+          const investors = await Promise.all(
+            data.investors.map(parseInvestorDocumentRef),
+          );
           return {
             ...data,
             investors,
@@ -40,19 +67,26 @@ const unitsCollection = {
           ...data,
         };
       });
+    } catch (error) {
+      throw error;
+    }
   },
   addInvestor: async (id, investor = {}) => {
-    if (!id || !investor.id) {
-      throw new Error('Missing unitId or investorId');
+    try {
+      if (!id || !investor.id) {
+        throw new Error('Missing unitId or investorId');
+      }
+      const unit = await unitsCollection.get(id);
+      const investorRef = await investorsCollection.get(investor.id);
+      const unitInvestors = unit.investors || [];
+      const investors = [...unitInvestors, investorRef];
+      const newData = Object.assign({}, unit, {
+        investors,
+      });
+      return collection.doc(id).set(newData);
+    } catch (error) {
+      throw error;
     }
-    const unit = await unitsCollection.get(id);
-    const investorRef = await investorsCollection.get(investor.id);
-    const unitInvestors = unit.investors || [];
-    const investors = [...unitInvestors, investorRef];
-    const newData = Object.assign({}, unit, {
-      investors,
-    });
-    return collection.doc(id).set(newData);
   },
 };
 
