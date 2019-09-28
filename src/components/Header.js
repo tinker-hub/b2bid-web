@@ -13,7 +13,7 @@ import {
   Paper,
 } from '@material-ui/core';
 import {
-  AccountBalance as AccountBalanceIcon,
+  AccountBalanceWallet as AccountBalanceWalletIcon,
   AccountCircle as AccountCircleIcon,
   House as HouseIcon,
 } from '@material-ui/icons';
@@ -67,7 +67,7 @@ export const Header = () => {
           aria-label="scrollable force tabs example"
         >
           <Tab label="Listings" icon={<HouseIcon />} />
-          <Tab label="Portfolio" icon={<AccountBalanceIcon />} />
+          <Tab label="Portfolio" icon={<AccountBalanceWalletIcon />} />
         </Tabs>
       </Paper>
     </Box>
