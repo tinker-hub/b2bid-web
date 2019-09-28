@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { createApi } from '@synvox/api';
 import axios from 'axios';
 import qs from 'querystring';
@@ -118,7 +118,7 @@ export const useUnionbankFundTransfer = () => {
       // );
       setLoading(false);
       // setData(response.data);
-      return response;
+      return data;
     } catch (error) {
       setError(error);
       setLoading(false);
