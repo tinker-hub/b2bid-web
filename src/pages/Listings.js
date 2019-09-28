@@ -17,6 +17,7 @@ import { ListingItem } from '../components/ListingItem';
 import { unitsCollection } from '../utils/firebase-collections/units.collection';
 import { Layout } from '../components/Layout';
 import { PageContainer } from '../components/PageContainer';
+import { getUniqueLocations, filterLocation } from '../utils/helpers/tools';
 
 const useStyles = makeStyles(theme => ({
   paperContainer: {
@@ -32,17 +33,16 @@ const useStyles = makeStyles(theme => ({
 
 const Listings = props => {
   const theme = useTheme();
-
   const styles = useStyles();
   const [values, setValues] = React.useState({
-    age: '',
+    filter: '',
     name: 'hai',
     listingsData: [],
   });
 
+  const [listingsRaw, setListingsRaw] = React.useState([]);
   const [listingsData, setListingsData] = React.useState([]);
-
-  console.log(listingsData);
+  const [filterData, setFilterData] = React.useState([]);
 
   useEffect(() => {
     getUnits();
@@ -50,8 +50,9 @@ const Listings = props => {
 
   const getUnits = async () => {
     const res = await unitsCollection.getAll();
-    console.log(res);
     setListingsData(res);
+    setListingsRaw(res);
+    setFilterData(getUniqueLocations(res));
   };
 
   const handleChange = event => {
@@ -59,6 +60,8 @@ const Listings = props => {
       ...oldValues,
       [event.target.name]: event.target.value,
     }));
+    console.log(filterLocation(listingsRaw, event.target.value));
+    setListingsData(filterLocation(listingsRaw, event.target.value));
   };
 
   const handleOnListingClick = id => {
@@ -76,16 +79,21 @@ const Listings = props => {
             <FormControl className={styles.formControl}>
               <InputLabel htmlFor="age-simple">Location</InputLabel>
               <Select
-                value={values.age}
+                value={values.filter}
                 onChange={handleChange}
                 inputProps={{
-                  name: 'age',
-                  id: 'age-simple',
+                  name: 'filter',
+                  id: 'location-id',
                 }}
               >
-                <MenuItem value={10}>All Locations</MenuItem>
-                <MenuItem value={20}>Metro Manila</MenuItem>
-                <MenuItem value={30}>Quezon City</MenuItem>
+                <MenuItem value="all">All Locations</MenuItem>
+                {filterData.map((value, index) => {
+                  return (
+                    <MenuItem value={value} key={index}>
+                      {value}
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
           </Paper>
