@@ -124,7 +124,7 @@ export const ListingItem = props => {
                 color="textSecondary"
                 className={classes.percentText}
               >
-                0.00%
+                ₱{props.lowestAvailablePrice}
               </Typography>
             </Grid>
             <Grid item xs={6} className={classes.dataContainer}>
@@ -143,14 +143,14 @@ export const ListingItem = props => {
           <Grid container>
             <Grid item xs={12} className={classes.dataContainer}>
               <Typography variant="body2" component="p">
-                Unit Price
+                Property Price
               </Typography>
               <Typography
                 variant="body1"
                 color="textSecondary"
                 className={classes.percentText}
               >
-                ${props.price}
+                ₱{props.price}
               </Typography>
             </Grid>
           </Grid>
