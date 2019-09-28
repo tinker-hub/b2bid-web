@@ -68,7 +68,7 @@ export const ListingItem = props => {
   const theme = useTheme();
 
   return (
-    <Grid item xs={4}>
+    <Grid item xs={3}>
       <Card className={classes.card}>
         <CardHeader
           title={props.name}

@@ -44,6 +44,7 @@ const routes = [
     path: '/portfolio',
   },
   {
+    exact: true,
     component: Login,
     path: '/',
   },
