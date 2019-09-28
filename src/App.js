@@ -8,10 +8,11 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Listings from './pages/Listings';
 import { ListingDetails } from './pages/ListingDetails';
 import { Callback } from './pages/Callback';
-import { Test } from './pages/Test';
 import { Portfolio } from './pages/Portfolio';
-import { ListingPayment } from './pages/ListingPayment';
 import { Login } from './pages/Login';
+import { SignUp } from './pages/SignUp';
+import { Test } from './pages/Test';
+import { ListingPayment } from './pages/ListingPayment';
 
 export const App = () => (
   <>
@@ -50,6 +51,10 @@ const routes = [
   {
     component: Portfolio,
     path: '/portfolio',
+  },
+  {
+    component: SignUp,
+    path: '/signup',
   },
   {
     component: Test,

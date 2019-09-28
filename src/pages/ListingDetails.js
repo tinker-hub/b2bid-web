@@ -1,12 +1,9 @@
 import React, { useEffect } from 'react';
 import { withRouter } from 'react-router';
 
-import styled from 'styled-components';
-
 import {
   Container,
   Grid,
-  Paper,
   Box,
   Typography,
   useTheme,

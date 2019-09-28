@@ -21,6 +21,7 @@ import { PageContainer } from '../components/PageContainer';
 const useStyles = makeStyles(theme => ({
   paperContainer: {
     padding: '20px',
+    marginBottom: 20,
   },
   formControl: {
     width: '100%',
@@ -68,36 +69,28 @@ const Listings = props => {
     <Layout>
       <PageContainer style={{ spacing: theme.spacing(3) }}>
         <Container>
+          <Paper className={styles.paperContainer}>
+            <Typography variant="h6" component="h2">
+              Filter By:
+            </Typography>
+            <FormControl className={styles.formControl}>
+              <InputLabel htmlFor="age-simple">Location</InputLabel>
+              <Select
+                value={values.age}
+                onChange={handleChange}
+                inputProps={{
+                  name: 'age',
+                  id: 'age-simple',
+                }}
+              >
+                <MenuItem value={10}>All Locations</MenuItem>
+                <MenuItem value={20}>Metro Manila</MenuItem>
+                <MenuItem value={30}>Quezon City</MenuItem>
+              </Select>
+            </FormControl>
+          </Paper>
           <Grid container spacing={2}>
-            <Grid item xs={3}>
-              <Paper className={styles.paperContainer}>
-                <Typography variant="h6" component="h2">
-                  Filter By:
-                </Typography>
-                <FormControl className={styles.formControl}>
-                  <InputLabel htmlFor="age-simple">Location</InputLabel>
-                  <Select
-                    value={values.age}
-                    onChange={handleChange}
-                    inputProps={{
-                      name: 'age',
-                      id: 'age-simple',
-                    }}
-                  >
-                    <MenuItem value={10}>All Locations</MenuItem>
-                    <MenuItem value={20}>Metro Manila</MenuItem>
-                    <MenuItem value={30}>Quezon City</MenuItem>
-                  </Select>
-                </FormControl>
-              </Paper>
-            </Grid>
-            <Grid
-              item
-              container
-              xs={9}
-              spacing={2}
-              className={styles.listContainer}
-            >
+            <Grid item container spacing={2} className={styles.listContainer}>
               {listingsData.map((value, index) => {
                 return (
                   <ListingItem
