@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { withRouter } from 'react-router';
 
 import {
   Container,
@@ -25,7 +26,7 @@ import propertyImage3 from '../assets/images/property-image3.jpg';
 import propertyImage4 from '../assets/images/property-image4.jpg';
 import propertyImage5 from '../assets/images/property-image5.jpg';
 
-export const ListingDetails = () => {
+export const ListingDetails = props => {
   const propertyName =
     'Unit 1906, URBAN DECA TOWER EDSA, 69 EDSA and, Sierra Madre, Brgy, Mandaluyong, 1550';
   // TODO: Format this count 1,000
@@ -117,7 +118,21 @@ export const ListingDetails = () => {
     },
   ];
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const theme = useTheme();
+
+  const handleOnClickBuyBlocks = () => {
+    const {
+      location: {
+        state: { id },
+      },
+    } = props;
+
+    props.history.push(`/listings/${id || 1}/payments`);
+  };
 
   return (
     <Box>
@@ -199,6 +214,7 @@ export const ListingDetails = () => {
             style={{
               marginRight: theme.spacing(3),
             }}
+            onClick={handleOnClickBuyBlocks}
           >
             Buy Blocks
           </Button>
@@ -296,3 +312,5 @@ export const ListingDetails = () => {
     </Box>
   );
 };
+
+export default withRouter(ListingDetails);

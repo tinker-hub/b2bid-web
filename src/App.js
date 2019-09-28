@@ -5,12 +5,13 @@ import { createGlobalStyle } from 'styled-components';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Listings } from './pages/Listings';
+import Listings from './pages/Listings';
 import { ListingDetails } from './pages/ListingDetails';
 import { Callback } from './pages/Callback';
 import { Portfolio } from './pages/Portfolio';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
+import { ListingPayment } from './pages/ListingPayment';
 
 export const App = () => (
   <>
@@ -33,7 +34,13 @@ const routes = [
   },
   {
     component: ListingDetails,
+    exact: true,
     path: '/listings/:listingId',
+  },
+  {
+    component: ListingPayment,
+    exact: true,
+    path: '/listings/:listingId/payments',
   },
   {
     component: Callback,
@@ -51,6 +58,11 @@ const routes = [
   {
     component: SignUp,
     path: '/signup',
+  },
+  {
+    path: '/',
+    exact: true,
+    component: Listings,
   },
 ];
 
