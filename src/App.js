@@ -8,7 +8,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Listings from './pages/Listings';
 import { ListingDetails } from './pages/ListingDetails';
 import { Callback } from './pages/Callback';
+import { Test } from './pages/Test';
+import { Portfolio } from './pages/Portfolio';
 import { ListingPayment } from './pages/ListingPayment';
+import { Login } from './pages/Login';
 
 export const App = () => (
   <>
@@ -24,6 +27,7 @@ export const App = () => (
 );
 
 const routes = [
+  { path: '/', exact: true, component: Login },
   {
     exact: true,
     component: Listings,
@@ -44,9 +48,12 @@ const routes = [
     path: '/callback',
   },
   {
-    path: '/',
-    exact: true,
-    component: Listings,
+    component: Portfolio,
+    path: '/portfolio',
+  },
+  {
+    component: Test,
+    path: '/test',
   },
 ];
 
