@@ -1,5 +1,8 @@
-import React from 'react';
-import { useUnionbankGetAccessToken } from '../hooks/useUnionbankApi';
+import React, { useEffect } from 'react';
+import {
+  useUnionbankGetAccessToken,
+  useUnionbankFundTransfer,
+} from '../hooks/useUnionbankApi';
 
 export const Callback = props => {
   const { location } = props;
@@ -9,9 +12,46 @@ export const Callback = props => {
 
   console.log('code: ', code);
 
-  const token = useUnionbankGetAccessToken(code);
+  const {
+    loading: loadingGetAccessToken,
+    error: errorGetAccessToken,
+    data: dataGetAccessToken,
+    execute: executeGetAccessToken,
+  } = useUnionbankGetAccessToken(code);
 
-  console.log('token: ', token);
+  const {
+    loading: loadingFundTransfer,
+    data: dataFundTransfer,
+    execute: executeFundTransfer,
+  } = useUnionbankFundTransfer();
+
+  useEffect(() => {
+    const execute = async () => {
+      if (
+        !loadingGetAccessToken &&
+        !dataGetAccessToken &&
+        !errorGetAccessToken
+      ) {
+        await executeGetAccessToken();
+      }
+      if (!loadingGetAccessToken && dataGetAccessToken) {
+        await executeFundTransfer();
+      }
+    };
+    execute();
+  }, [
+    dataGetAccessToken,
+    loadingGetAccessToken,
+    executeGetAccessToken,
+    executeFundTransfer,
+  ]);
+
+  useEffect(() => {
+    if (!loadingFundTransfer && dataFundTransfer) {
+      // navigate
+      alert(1);
+    }
+  }, [loadingFundTransfer, dataFundTransfer]);
 
   return <div></div>;
 };

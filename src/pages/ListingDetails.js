@@ -18,7 +18,11 @@ import {
 import {
   AttachMoney as AttachMoneyIcon,
   People as PeopleIcon,
+  ChevronLeft as ChevronLeftIcon,
 } from '@material-ui/icons';
+
+import { PageContainer } from '../components/PageContainer';
+import { Layout } from '../components/Layout';
 
 import propertyImage1 from '../assets/images/property-image1.jpg';
 import propertyImage2 from '../assets/images/property-image2.jpg';
@@ -27,6 +31,8 @@ import propertyImage4 from '../assets/images/property-image4.jpg';
 import propertyImage5 from '../assets/images/property-image5.jpg';
 
 export const ListingDetails = props => {
+  const { history, location } = props;
+
   const propertyName =
     'Unit 1906, URBAN DECA TOWER EDSA, 69 EDSA and, Sierra Madre, Brgy, Mandaluyong, 1550';
   // TODO: Format this count 1,000
@@ -126,190 +132,197 @@ export const ListingDetails = props => {
 
   const handleOnClickBuyBlocks = () => {
     const {
-      location: {
-        state: { id },
-      },
-    } = props;
+      state: { listingId },
+    } = location;
 
-    props.history.push(`/listings/${id || 1}/payments`);
+    history.push(`/listings/${listingId || 1}/buy-blocks`);
   };
 
   return (
-    <Box>
-      <Box color="#fff" bgcolor={theme.palette.grey}>
-        <Container>
-          <Grid container spacing={4}>
-            <Grid item xs={6}>
-              <Typography>{propertyName}</Typography>
-            </Grid>
-            <Grid
-              item
-              style={{
-                marginLeft: 'auto',
-              }}
-              xs={4}
-            >
-              <Box display="flex" alignItems="center">
-                <PeopleIcon />
-                <Typography
-                  style={{
-                    marginRight: theme.spacing(2),
-                    paddingRight: theme.spacing(2),
-                    borderRight: '1px solid #fff',
-                  }}
-                >
-                  {propertyInvestorsCount} Investors
-                </Typography>
-                <AttachMoneyIcon />
-                <Typography
-                  style={{
-                    marginRight: theme.spacing(3),
-                  }}
-                >
-                  Brick Price
-                </Typography>
-                <Typography variant="h6">{propertyUnitPrice}</Typography>
-              </Box>
-            </Grid>
-          </Grid>
+    <Layout hideTabNavigation>
+      <PageContainer>
+        <Container style={{ marginBottom: theme.spacing(4) }}>
+          <Button onClick={() => history.push('/listings')}>
+            <ChevronLeftIcon /> Back to Listings
+          </Button>
         </Container>
-      </Box>
-      <Box
-        bgcolor={theme.palette.background.paper}
-        display="flex"
-        flexWrap="wrap"
-        justifyContent="space-around"
-        style={{
-          marginBottom: theme.spacing(3),
-        }}
-        overflow="hidden"
-      >
-        <GridList
-          cols={2.5}
-          style={{
-            flexWrap: 'nowrap',
-            // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
-            transform: 'translateZ(0)',
-          }}
-        >
-          {propertyImagesData.map(propertyImage => (
-            <GridListTile style={{ height: 320 }} key={propertyImage.img}>
-              <img src={propertyImage.img} alt={propertyImage.title} />
-              <GridListTileBar
+        <Box color="#fff" bgcolor={theme.palette.grey}>
+          <Container>
+            <Grid container spacing={4}>
+              <Grid item xs={6}>
+                <Typography>{propertyName}</Typography>
+              </Grid>
+              <Grid
+                item
                 style={{
-                  background:
-                    'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+                  marginLeft: 'auto',
                 }}
-              />
-            </GridListTile>
-          ))}
-        </GridList>
-      </Box>
-      <Container>
-        <Box display="flex" justifyContent="flex-end" mb={3}>
-          <Button
-            color="primary"
-            variant="contained"
-            size="large"
-            style={{
-              marginRight: theme.spacing(3),
-            }}
-            onClick={handleOnClickBuyBlocks}
-          >
-            Buy Blocks
-          </Button>
-          <Button color="secondary" size="large" variant="contained">
-            Sell Blocks
-          </Button>
+                xs={4}
+              >
+                <Box display="flex" alignItems="center">
+                  <PeopleIcon />
+                  <Typography
+                    style={{
+                      marginRight: theme.spacing(2),
+                      paddingRight: theme.spacing(2),
+                      borderRight: '1px solid #fff',
+                    }}
+                  >
+                    {propertyInvestorsCount} Investors
+                  </Typography>
+                  <AttachMoneyIcon />
+                  <Typography
+                    style={{
+                      marginRight: theme.spacing(3),
+                    }}
+                  >
+                    Blocks Price
+                  </Typography>
+                  <Typography variant="h6">{propertyUnitPrice}</Typography>
+                </Box>
+              </Grid>
+            </Grid>
+          </Container>
         </Box>
-        <Card
+        <Box
+          bgcolor={theme.palette.background.paper}
+          display="flex"
+          flexWrap="wrap"
+          justifyContent="space-around"
           style={{
             marginBottom: theme.spacing(3),
           }}
+          overflow="hidden"
         >
-          <CardHeader
-            title={<Typography variant="h4">Investment Case</Typography>}
-          />
-          <CardContent>
-            <Box mb={3}>
-              <Typography gutterBottom variant="h5">
-                Overview
-              </Typography>
-              <Typography gutterBottom>
-                {propertyInvestmentCaseOverview}
-              </Typography>
-            </Box>
-            <Box mb={3}>
-              <Typography gutterBottom variant="h5">
-                The Location
-              </Typography>
-              <Typography gutterBottom>
-                {propertyInvestmentCaseLocation}
-              </Typography>
-            </Box>
-            <Box mb={3}>
-              <Typography gutterBottom variant="h5">
-                Property Investment Case
-              </Typography>
-              <Typography gutterBottom>{propertyInvestmentCase}</Typography>
-            </Box>
-            <Box mb={3}>
-              <Typography gutterBottom variant="h5">
-                Property Management
-              </Typography>
-              <Typography gutterBottom>
-                {propertyInvestmentCasePropertyManagement}
-              </Typography>
-            </Box>
-            <Box mb={3}>
-              <Typography gutterBottom variant="h5">
-                Important Notice
-              </Typography>
-              <Typography gutterBottom>
-                {propertyInvestmentCaseImportantNotice}
-              </Typography>
-            </Box>
-          </CardContent>
-        </Card>
-
-        <Card
-          style={{
-            marginBottom: theme.spacing(3),
-          }}
-        >
-          <CardHeader title={<Typography variant="h4">Amenities</Typography>} />
-          <CardContent>
-            <Box component="ul">
-              {amenitiesData.map((amenity, index) => (
-                <Typography key={index} component="li">
-                  {amenity}
-                </Typography>
-              ))}
-            </Box>
-          </CardContent>
-        </Card>
-
-        <Card
-          style={{
-            marginBottom: theme.spacing(3),
-          }}
-        >
-          <CardHeader
-            title={<Typography variant="h4">Monthly Updates</Typography>}
-          />
-          <CardContent>
-            {monthlyUpdatesData.map(monthlyUpdate => (
-              <Box mb={3}>
-                <Typography gutterBottom variant="h6">
-                  {monthlyUpdate.month}
-                </Typography>
-                <Typography>{monthlyUpdate.update}</Typography>
-              </Box>
+          <GridList
+            cols={2.5}
+            style={{
+              flexWrap: 'nowrap',
+              // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+              transform: 'translateZ(0)',
+            }}
+          >
+            {propertyImagesData.map(propertyImage => (
+              <GridListTile style={{ height: 320 }} key={propertyImage.img}>
+                <img src={propertyImage.img} alt={propertyImage.title} />
+                <GridListTileBar
+                  style={{
+                    background:
+                      'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+                  }}
+                />
+              </GridListTile>
             ))}
-          </CardContent>
-        </Card>
-      </Container>
-    </Box>
+          </GridList>
+        </Box>
+        <Container>
+          <Box display="flex" justifyContent="flex-end" mb={3}>
+            <Button
+              color="primary"
+              variant="contained"
+              size="large"
+              style={{
+                marginRight: theme.spacing(3),
+              }}
+              onClick={handleOnClickBuyBlocks}
+            >
+              Buy Blocks
+            </Button>
+            <Button color="secondary" size="large" variant="contained">
+              Sell Blocks
+            </Button>
+          </Box>
+          <Card
+            style={{
+              marginBottom: theme.spacing(3),
+            }}
+          >
+            <CardHeader
+              title={<Typography variant="h4">Investment Case</Typography>}
+            />
+            <CardContent>
+              <Box mb={3}>
+                <Typography gutterBottom variant="h5">
+                  Overview
+                </Typography>
+                <Typography gutterBottom>
+                  {propertyInvestmentCaseOverview}
+                </Typography>
+              </Box>
+              <Box mb={3}>
+                <Typography gutterBottom variant="h5">
+                  The Location
+                </Typography>
+                <Typography gutterBottom>
+                  {propertyInvestmentCaseLocation}
+                </Typography>
+              </Box>
+              <Box mb={3}>
+                <Typography gutterBottom variant="h5">
+                  Property Investment Case
+                </Typography>
+                <Typography gutterBottom>{propertyInvestmentCase}</Typography>
+              </Box>
+              <Box mb={3}>
+                <Typography gutterBottom variant="h5">
+                  Property Management
+                </Typography>
+                <Typography gutterBottom>
+                  {propertyInvestmentCasePropertyManagement}
+                </Typography>
+              </Box>
+              <Box mb={3}>
+                <Typography gutterBottom variant="h5">
+                  Important Notice
+                </Typography>
+                <Typography gutterBottom>
+                  {propertyInvestmentCaseImportantNotice}
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+
+          <Card
+            style={{
+              marginBottom: theme.spacing(3),
+            }}
+          >
+            <CardHeader
+              title={<Typography variant="h4">Amenities</Typography>}
+            />
+            <CardContent>
+              <Box component="ul">
+                {amenitiesData.map((amenity, index) => (
+                  <Typography key={index} component="li">
+                    {amenity}
+                  </Typography>
+                ))}
+              </Box>
+            </CardContent>
+          </Card>
+
+          <Card
+            style={{
+              marginBottom: theme.spacing(3),
+            }}
+          >
+            <CardHeader
+              title={<Typography variant="h4">Monthly Updates</Typography>}
+            />
+            <CardContent>
+              {monthlyUpdatesData.map(monthlyUpdate => (
+                <Box mb={3}>
+                  <Typography gutterBottom variant="h6">
+                    {monthlyUpdate.month}
+                  </Typography>
+                  <Typography>{monthlyUpdate.update}</Typography>
+                </Box>
+              ))}
+            </CardContent>
+          </Card>
+        </Container>
+      </PageContainer>
+    </Layout>
   );
 };
 
