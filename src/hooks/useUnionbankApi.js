@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createApi } from '@synvox/api';
 import axios from 'axios';
+import qs from 'querystring';
 
 const unionBankAxios = axios.create({
   baseURL: process.env.REACT_APP_UNIONBANK_BASE_URL,
@@ -13,44 +14,44 @@ export const useUnionbankGetAccessToken = code => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const execute = async () => {
-      setLoading(false);
+  const execute = async () => {
+    setLoading(false);
 
-      try {
-        const response = await unionBankAxios.post(
-          '/convergent/v1/oauth2/token',
-          {
-            grant_type: 'authorization_code',
-            client_id: process.env.REACT_APP_UNIONBANK_CLIENT_ID,
-            code,
-            redirect_uri: process.env.REACT_APP_UNIONBANK_REDIRECT_URI,
+    const body = qs.stringify({
+      grant_type: 'authorization_code',
+      client_id: process.env.REACT_APP_UNIONBANK_CLIENT_ID,
+      code,
+      redirect_uri: process.env.REACT_APP_UNIONBANK_REDIRECT_URI,
+    });
+
+    try {
+      const response = await unionBankAxios.post(
+        '/convergent/v1/oauth2/token',
+        body,
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Accept: 'text/html',
+            'x-ibm-client-id': process.env.REACT_APP_UNIONBANK_CLIENT_ID,
+            'x-ibm-client-secret':
+              process.env.REACT_APP_UNIONBANK_CLIENT_SECRET,
           },
-          {
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-              Accept: 'text/html',
-              'x-ibm-client-id': process.env.REACT_APP_UNIONBANK_CLIENT_ID,
-              'x-ibm-client-secret':
-                process.env.REACT_APP_UNIONBANK_CLIENT_SECRET,
-            },
-          },
-        );
-        setData(response);
-        setLoading(false);
-        return data;
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
-    };
-    execute();
-  }, [data, loading]);
+        },
+      );
+      setData(response);
+      setLoading(false);
+      return data;
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    }
+  };
 
   if (!code) {
     setError('No code specified');
   }
   return {
+    execute,
     data,
     error,
     loading,
