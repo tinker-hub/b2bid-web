@@ -36,6 +36,10 @@ const routes = [
     component: Callback,
     path: '/callback',
   },
+  {
+    path: '/',
+    component: Listings,
+  },
 ];
 
 const GlobalStyle = createGlobalStyle`
