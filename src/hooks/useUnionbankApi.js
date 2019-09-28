@@ -26,6 +26,15 @@ export const useUnionbankGetAccessToken = code => {
             code,
             redirect_uri: process.env.REACT_APP_UNIONBANK_REDIRECT_URI,
           },
+          {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              Accept: 'text/html',
+              'x-ibm-client-id': process.env.REACT_APP_UNIONBANK_CLIENT_ID,
+              'x-ibm-client-secret':
+                process.env.REACT_APP_UNIONBANK_CLIENT_SECRET,
+            },
+          },
         );
         setData(response);
         setLoading(false);
