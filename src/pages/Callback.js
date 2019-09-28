@@ -3,6 +3,7 @@ import {
   useUnionbankGetAccessToken,
   useUnionbankFundTransfer,
 } from '../hooks/useUnionbankApi';
+import { unitsCollection } from '../utils/firebase-collections/units.collection';
 
 export const Callback = props => {
   const { location } = props;
@@ -47,10 +48,14 @@ export const Callback = props => {
   ]);
 
   useEffect(() => {
-    if (!loadingFundTransfer && dataFundTransfer) {
-      // navigate
-      alert(1);
-    }
+    const execute = async () => {
+      if (!loadingFundTransfer && dataFundTransfer) {
+        // navigate
+        alert(1);
+        await unitsCollection.addInvestor();
+      }
+    };
+    execute();
   }, [loadingFundTransfer, dataFundTransfer]);
 
   return <div></div>;
