@@ -1,18 +1,17 @@
 import { createApi } from '@synvox/api';
 import axios from 'axios';
 
-const { useApi: useUnionbankApi } = createApi(
-  axios.create({
-    baseURL: process.env.REACT_APP_UNIONBANK_BASE_URL,
-  }),
-);
+const unionBankAxios = axios.create({
+  baseURL: process.env.REACT_APP_UNIONBANK_BASE_URL,
+});
+
+const { useApi: useUnionbankApi } = createApi(unionBankAxios);
 
 export const useUnionbankGetAccessToken = code => {
   if (!code) {
     throw new Error('No code specified');
   }
-  const api = useUnionbankApi();
-  const { access_token: token } = api.convergent.v1.oauth2.token.post({
+  return unionBankAxios.post('/api/convergent/v1/oauth2/token', {
     grant_type: 'authorization_code',
     client_id: process.env.REACT_APP_UNIONBANK_CLIENT_ID,
     client_secret: process.env.REACT_APP_UNIONBANK_CLIENT_SECRET,
@@ -20,12 +19,11 @@ export const useUnionbankGetAccessToken = code => {
     // Own redirect?
     redirect_uri: 'https://api-uat.unionbankph.com/ubp/uat/v1/redirect',
   });
-  return token;
 };
 
 export const useUnionbankFundTransfer = () => {
   const api = useUnionbankApi();
-  const transferRequest = api.partners.v1.transfers.single.post({
+  return unionBankAxios.post('/api/partners/v1/transfers/single', {
     senderTransferId: 'TRANSFER-0001',
     transferRequestDate: '2017-10-10T12:11:50Z',
     accountNo: '0001',
@@ -48,7 +46,6 @@ export const useUnionbankFundTransfer = () => {
       },
     ],
   });
-  return transferRequest;
 };
 
 export { useUnionbankApi };
