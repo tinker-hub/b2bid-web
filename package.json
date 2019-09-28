@@ -7,6 +7,7 @@
     "@material-ui/icons": "^4.4.3",
     "@synvox/api": "^0.1.6",
     "axios": "^0.19.0",
+    "firebase": "^7.0.0",
     "formik": "^1.5.8",
     "husky": "^3.0.5",
     "prettier": "^1.18.2",
@@ -20,7 +21,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "firebase deploy --only hosting"
   },
   "eslintConfig": {
     "extends": "react-app"
