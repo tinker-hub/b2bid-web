@@ -11,8 +11,6 @@ import {
 } from '@material-ui/core';
 import {
   AccountCircle as AccountCircleIcon,
-  Favorite as FavoriteIcon,
-  Phone as PhoneIcon,
   House as HouseIcon,
 } from '@material-ui/icons';
 
