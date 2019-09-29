@@ -66,7 +66,8 @@ const Listings = props => {
   };
 
   const handleOnListingClick = id => {
-    props.history.push(`/listings/${id}`, { id });
+    const listId = id;
+    props.history.push(`/listings/${listId}`);
   };
 
   return (
@@ -104,7 +105,7 @@ const Listings = props => {
                 return (
                   <ListingItem
                     key={index}
-                    id={index + 1}
+                    id={value.id}
                     name={value.name}
                     investors={
                       value.investors != null ? value.investors.length : 0

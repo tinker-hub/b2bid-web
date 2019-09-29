@@ -1,5 +1,3 @@
-import { helper } from '../helper';
-
 const UNIT_TYPE = {
   HOUSE: 'House',
   UNIT: 'Unit',

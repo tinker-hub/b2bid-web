@@ -13,7 +13,6 @@ import { Portfolio } from './pages/Portfolio';
 import { Login } from './pages/Login';
 import { SignUp } from './pages/SignUp';
 import { Test } from './pages/Test';
-import { ListingPayment } from './pages/ListingPayment';
 
 export const App = () => (
   <>
