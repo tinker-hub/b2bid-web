@@ -45,6 +45,7 @@ export const Callback = props => {
     loadingGetAccessToken,
     executeGetAccessToken,
     executeFundTransfer,
+    errorGetAccessToken,
   ]);
 
   useEffect(() => {

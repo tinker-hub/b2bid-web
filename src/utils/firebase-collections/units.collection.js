@@ -1,7 +1,6 @@
 import * as bluebird from 'bluebird';
 
 import { firebaseFactory } from '../firebase';
-import { investorsCollection } from './investors.collection';
 import { usersCollection } from './users.collection';
 import { helper } from '../helper';
 
@@ -74,9 +73,6 @@ const unitsCollection = {
   },
   addInvestor: async (id = 'YRjIfI3lhJJURqjZNt96', investor = {}) => {
     try {
-      // if (!id || !investor.id) {
-      //   throw new Error('Missing unitId or investorId');
-      // }
       const unit = await unitsCollection.get(id);
       const investorRef = {
         address: helper.chance.address(),
@@ -84,7 +80,6 @@ const unitsCollection = {
         lastName: helper.chance.last(),
         id: helper.chance.integer({ min: 1, max: 99 }),
       };
-      // await investorsCollection.get(investor.id);
       const unitInvestors = unit.investors || [];
       const investors = [...unitInvestors, investorRef];
       const newData = Object.assign({}, unit, {

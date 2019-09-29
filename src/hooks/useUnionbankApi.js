@@ -64,7 +64,7 @@ export const useUnionbankGetAccessToken = code => {
 };
 
 export const useUnionbankFundTransfer = () => {
-  const [data, setData] = useState({
+  const [data] = useState({
     paymentId: 'UB2985127673018',
     createdAt: '2015-10-03T15:29:16.333',
     state: 'Payment Succesful',
@@ -73,7 +73,7 @@ export const useUnionbankFundTransfer = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const execute = async token => {
+  const execute = async () => {
     try {
       setLoading(true);
 
