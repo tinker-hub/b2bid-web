@@ -36,7 +36,7 @@ import propertyImage4 from '../assets/images/property-image4.jpg';
 import propertyImage5 from '../assets/images/property-image5.jpg';
 
 export const ListingDetails = props => {
-  const { history, location, match } = props;
+  const { history, match } = props;
 
   const { params } = match;
   const { listingId } = params;
@@ -128,10 +128,6 @@ export const ListingDetails = props => {
   const theme = useTheme();
 
   const handleOnClickBuyBlocks = () => {
-    const {
-      state: { listingId },
-    } = location;
-
     history.push(`/listings/${listingId || 1}/buy-blocks`);
   };
 
