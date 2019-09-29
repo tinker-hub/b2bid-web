@@ -20,4 +20,4 @@ jobs: # a collection of steps
           command: npm build
       - run:
           name: deploy firebase
-          command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only hosting
+          command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN --only hosting
