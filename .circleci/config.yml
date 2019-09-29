@@ -15,9 +15,9 @@ jobs: # a collection of steps
       - run:
           name: install-npm-wee
           command: npm install
-      - build:
-          name: build
-          command: npm run build
-      - deploy: # special step to save the dependency cache
+      - run:
+          name: build-app
+          command: npm build
+      - run:
           name: deploy firebase
           command: npm run deploy
