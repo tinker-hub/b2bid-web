@@ -57,7 +57,7 @@ export const Callback = props => {
       }
     };
     execute();
-  }, [loadingFundTransfer, dataFundTransfer]);
+  }, [loadingFundTransfer, dataFundTransfer, history]);
 
   return <div></div>;
 };
