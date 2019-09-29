@@ -117,7 +117,7 @@ export const ListingItem = props => {
           <Grid container>
             <Grid item xs={6} className={classes.dataContainer}>
               <Typography variant="body2" component="p">
-                Lowest Available Block Price
+                Block Price
               </Typography>
               <Typography
                 variant="body1"
