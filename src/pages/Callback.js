@@ -6,7 +6,7 @@ import {
 import { unitsCollection } from '../utils/firebase-collections/units.collection';
 
 export const Callback = props => {
-  const { location } = props;
+  const { history, location } = props;
   const { search } = location;
 
   const code = search.substring(6);
@@ -51,9 +51,9 @@ export const Callback = props => {
   useEffect(() => {
     const execute = async () => {
       if (!loadingFundTransfer && dataFundTransfer) {
-        // navigate
-        alert(1);
         await unitsCollection.addInvestor();
+
+        history.push('/portfolio');
       }
     };
     execute();
