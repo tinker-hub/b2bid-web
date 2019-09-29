@@ -17,7 +17,7 @@ jobs: # a collection of steps
           command: npm install
       - run:
           name: build-app
-          command: npm build
+          command: npm run build
       - run:
           name: deploy firebase
           command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN --only hosting
