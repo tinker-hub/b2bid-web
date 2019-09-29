@@ -7,10 +7,11 @@ import {
   Box,
   Toolbar,
   IconButton,
-  Typography,
   Tabs,
   Tab,
   Paper,
+  Button,
+  useTheme,
 } from '@material-ui/core';
 import {
   AccountBalanceWallet as AccountBalanceWalletIcon,
@@ -20,6 +21,8 @@ import {
 
 export const Header = props => {
   const { hideTabNavigation } = props;
+
+  const theme = useTheme();
 
   const location = useLocation();
 
@@ -48,9 +51,16 @@ export const Header = props => {
     <Box>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" style={{ flex: 1 }}>
-            Blox
-          </Typography>
+          <Box style={{ flex: 1 }}>
+            <Button
+              onClick={() => history.push('/listings')}
+              style={{ color: theme.palette.primary.contrastText }}
+              variant="h6"
+            >
+              Blox
+            </Button>
+          </Box>
+
           <Box>
             <IconButton color="inherit">
               <AccountCircleIcon />
