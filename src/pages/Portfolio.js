@@ -185,8 +185,8 @@ export const Portfolio = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rowsData.map(row => (
-                  <TableRow key={row.name}>
+                {rowsData.map((row, index) => (
+                  <TableRow key={index}>
                     <TableCell component="th" scope="row">
                       {row.listing}
                     </TableCell>
@@ -200,24 +200,28 @@ export const Portfolio = () => {
                     <TableCell align="right">{row.percentage}</TableCell>
                   </TableRow>
                 ))}
-                <TableRow>
-                  <TableCell colSpan={9} />
-                </TableRow>
-                <TableRow>
-                  <TableCell colSpan={5}>TOTAL</TableCell>
-                  <TableCell colSpan={1} align="right">
-                    4,323.12
-                  </TableCell>
-                  <TableCell colSpan={1} align="right">
-                    4,323.12
-                  </TableCell>
-                  <TableCell colSpan={1} align="right">
-                    -4,323.12
-                  </TableCell>
-                  <TableCell colSpan={1} align="right">
-                    -11.51%
-                  </TableCell>
-                </TableRow>
+                {rowsData.length && (
+                  <>
+                    <TableRow>
+                      <TableCell colSpan={9} />
+                    </TableRow>
+                    <TableRow>
+                      <TableCell colSpan={5}>TOTAL</TableCell>
+                      <TableCell colSpan={1} align="right">
+                        4,323.12
+                      </TableCell>
+                      <TableCell colSpan={1} align="right">
+                        4,323.12
+                      </TableCell>
+                      <TableCell colSpan={1} align="right">
+                        -4,323.12
+                      </TableCell>
+                      <TableCell colSpan={1} align="right">
+                        -11.51%
+                      </TableCell>
+                    </TableRow>
+                  </>
+                )}
               </TableBody>
             </Table>
           </Paper>
