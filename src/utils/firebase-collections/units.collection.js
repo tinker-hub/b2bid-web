@@ -47,6 +47,14 @@ const unitsCollection = {
       throw error;
     }
   },
+  getById: async (id) => {
+    try {
+      const result = await unitsCollection.getAll();
+      return result.filter(r => r.id === id);
+    } catch (error) {
+      throw error;
+    }
+  },
   getAll: async () => {
     try {
       const result = await collection.get();
