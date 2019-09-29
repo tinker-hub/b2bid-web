@@ -1,4 +1,6 @@
 import React from 'react';
+import { useHistory } from 'react-router';
+
 import { Container, TextField, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -31,6 +33,8 @@ const useStyles = makeStyles(theme => ({
 export const Login = () => {
   const classes = useStyles();
 
+  const history = useHistory();
+
   return (
     <Container>
       <form className={classes.container} noValidate autoComplete="off">
@@ -53,7 +57,12 @@ export const Login = () => {
           margin="normal"
           variant="outlined"
         />
-        <Button variant="outlined" color="primary" className={classes.button}>
+        <Button
+          variant="outlined"
+          color="primary"
+          className={classes.button}
+          onClick={() => history.push('/listings')}
+        >
           LOGIN
         </Button>
       </form>
